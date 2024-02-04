@@ -1,0 +1,16 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Name": "application.client\\application.client.esproj",
+        "Action": "StartWithoutDebugging",
+        "DebugTarget": "localhost (Edge)"
+      },
+      {
+        "Name": "docker-compose.dcproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

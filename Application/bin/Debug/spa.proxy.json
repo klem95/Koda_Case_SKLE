@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:5173",
+"RedirectUrl": "",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "C:\\Users\\45606\\Documents\\Work\\Applications\\Casework\\Koda\\Koda_Case_SKLE\\Application\\Application.Server\\..\\application.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}

@@ -1,0 +1,36 @@
+name: dockercompose12554665071935216541
+services:
+  application.server:
+    build:
+      context: C:\Users\45606\Documents\Work\Applications\Casework\Koda\Koda_Case_SKLE\Application
+      dockerfile: Application.Server/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+    image: applicationserver
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /c/Users/45606/AppData/Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /c/Users/45606/AppData/Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+networks:
+  default:
+    name: dockercompose12554665071935216541_default

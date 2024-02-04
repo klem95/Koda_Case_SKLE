@@ -1,0 +1,87 @@
+name: dockercompose12554665071935216541
+services:
+  application.server:
+    build:
+      context: C:\Users\45606\Documents\Work\Applications\Casework\Koda\Koda_Case_SKLE\Application
+      dockerfile: Application.Server/Dockerfile
+    container_name: ApplicationServer
+    depends_on:
+      postgresdb:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+    image: applicationserver
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8001
+        published: "59541"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /c/Users/45606/AppData/Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /c/Users/45606/AppData/Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+  pgadmin:
+    container_name: pgAdmin
+    depends_on:
+      postgresdb:
+        condition: service_started
+        required: true
+    environment:
+      PGADMIN_DEFAULT_EMAIL: kodaAdmin@outlook.dk
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: "8001"
+    image: dpage/pgadmin4:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8001
+        published: "8001"
+        protocol: tcp
+  postgresdb:
+    container_name: koda_db
+    environment:
+      POSTGRES_DB: KodaDb
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: postgres
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5433"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: db
+        target: /var/lib/postgres/db
+        volume: {}
+networks:
+  default:
+    name: dockercompose12554665071935216541_default
+volumes:
+  db:
+    name: dockercompose12554665071935216541_db

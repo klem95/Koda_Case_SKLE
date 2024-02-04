@@ -1,0 +1,10 @@
+Funktionel:
+1.	En bruger skal kunne oprette en brugerprofil via et særskilt UI view.
+2.	Ved oprettelse af brugerprofil skal følgende informationer kunne blive udfyldt: Navn, Kunstnernavn og E-mail.
+3.	Det skal IKKE være muligt at oprette en brugerprofil uden at oplyse Navn og E-mail.
+4.	Det skal IKKE være muligt at oprette en brugerprofil med en E-mail af forkert format.
+5.	En bruger skal kunne redigere eller slette sin brugerprofil via et særskilt UI view.
+
+Ikke Funktionel:
+1.	E-mailadressen skal være den unikke identifikator for brugerprofilen.
+2.	Backenden skal kodes i .NET.

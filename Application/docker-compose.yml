@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+    postgresdb:
+        image: postgres
+        container_name: koda_db
+        restart: unless-stopped
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=postgres
+          - POSTGRES_DB=KodaDb
+        ports:
+            - "5433:5432"
+        volumes:
+            - db:/var/lib/postgres/db
+    pgadmin:
+        image: dpage/pgadmin4:latest
+        container_name: pgAdmin
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=kodaAdmin@outlook.dk
+            - PGADMIN_DEFAULT_PASSWORD=admin
+            - PGADMIN_LISTEN_PORT=8001
+        ports:
+          - "8001:8001" 
+        depends_on:
+          - postgresdb
+    application.server:
+        container_name: ApplicationServer
+        ports:
+          - "59813:8081"
+        depends_on:
+          - postgresdb
+        restart: unless-stopped
+        image: ${DOCKER_REGISTRY-}applicationserver
+        build:
+            context: .
+            dockerfile: Application.Server/Dockerfile
+
+volumes:
+  db:
